@@ -77,7 +77,7 @@ import SwiftASN1
 /// ```
 ///
 /// This type is generic because our different backends want to use different bignum representations.
-struct BasicOCSPResponse: DERImplicitlyTaggable, Hashable {
+public struct BasicOCSPResponse: DERImplicitlyTaggable, Hashable {
     static var defaultIdentifier: ASN1Identifier {
         .sequence
     }

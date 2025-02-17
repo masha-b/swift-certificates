@@ -42,7 +42,7 @@ import SwiftASN1
 ///      aACompromise           (10) }
 /// ```
 ///
-enum OCSPCertStatus: DERParseable, DERSerializable, Hashable {
+public enum OCSPCertStatus: DERParseable, DERSerializable, Hashable {
     case good
     case revoked(OCSPRevokedInfo)
     case unknown
@@ -83,7 +83,7 @@ enum OCSPCertStatus: DERParseable, DERSerializable, Hashable {
     }
 }
 
-struct OCSPRevokedInfo: DERImplicitlyTaggable, Hashable {
+public struct OCSPRevokedInfo: DERImplicitlyTaggable, Hashable {
     static var defaultIdentifier: ASN1Identifier {
         .sequence
     }
@@ -120,7 +120,7 @@ struct OCSPRevokedInfo: DERImplicitlyTaggable, Hashable {
     }
 }
 
-struct CRLReason: DERImplicitlyTaggable, Hashable, RawRepresentable {
+public struct CRLReason: DERImplicitlyTaggable, Hashable, RawRepresentable {
     static var defaultIdentifier: ASN1Identifier {
         .enumerated
     }
@@ -151,7 +151,7 @@ struct CRLReason: DERImplicitlyTaggable, Hashable, RawRepresentable {
     static let aaCompromise = CRLReason(rawValue: 10)
 }
 
-extension CRLReason: CustomStringConvertible {
+public extension CRLReason: CustomStringConvertible {
     var description: String {
         switch rawValue {
         case 0: return "unspecified"

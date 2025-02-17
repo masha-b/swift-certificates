@@ -26,7 +26,7 @@ import SwiftASN1
 /// CertificateSerialNumber ::= INTEGER
 /// ```
 ///
-struct OCSPCertID: DERImplicitlyTaggable, Hashable {
+public struct OCSPCertID: DERImplicitlyTaggable, Hashable {
     var hashAlgorithm: AlgorithmIdentifier
 
     /// Hash of issuer's DN

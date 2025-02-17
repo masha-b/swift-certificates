@@ -25,7 +25,7 @@ import SwiftASN1
 ///    singleExtensions   [1]       EXPLICIT Extensions OPTIONAL }
 /// ```
 ///
-struct OCSPSingleResponse: DERImplicitlyTaggable, Hashable {
+public struct OCSPSingleResponse: DERImplicitlyTaggable, Hashable {
     static var defaultIdentifier: ASN1Identifier {
         .sequence
     }

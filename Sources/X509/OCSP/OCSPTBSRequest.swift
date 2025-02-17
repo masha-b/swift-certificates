@@ -24,7 +24,7 @@ import SwiftASN1
 ///
 /// Version ::= INTEGER { v1(0) }
 /// ```
-struct OCSPTBSRequest: DERImplicitlyTaggable, Hashable {
+public struct OCSPTBSRequest: DERImplicitlyTaggable, Hashable {
     static var defaultIdentifier: ASN1Identifier {
         .sequence
     }

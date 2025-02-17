@@ -19,7 +19,7 @@ import SwiftASN1
 /// Nonce ::= OCTET STRING(SIZE(1..32))
 /// ```
 /// RFC: https://www.rfc-editor.org/rfc/rfc8954.html
-struct OCSPNonce: DERImplicitlyTaggable, Hashable, Sendable {
+public struct OCSPNonce: DERImplicitlyTaggable, Hashable, Sendable {
     static var defaultIdentifier: ASN1Identifier {
         ASN1OctetString.defaultIdentifier
     }
@@ -58,11 +58,11 @@ struct OCSPNonce: DERImplicitlyTaggable, Hashable, Sendable {
     }
 }
 
-extension ASN1ObjectIdentifier.OCSPExtensionID {
-    static let nonceIdentifier: ASN1ObjectIdentifier = [1, 3, 6, 1, 5, 5, 7, 48, 1, 2]
+public extension ASN1ObjectIdentifier.OCSPExtensionID {
+    public static let nonceIdentifier: ASN1ObjectIdentifier = [1, 3, 6, 1, 5, 5, 7, 48, 1, 2]
 }
 
-extension Certificate.Extension {
+public extension Certificate.Extension {
     /// Construct an opaque ``Certificate/Extension`` from this Key Usage extension.
     ///
     /// - Parameters:
@@ -75,13 +75,13 @@ extension Certificate.Extension {
     }
 }
 
-extension OCSPNonce: CertificateExtensionConvertible {
+public extension OCSPNonce: CertificateExtensionConvertible {
     func makeCertificateExtension() throws -> Certificate.Extension {
         try .init(self, critical: false)
     }
 }
 
-extension Certificate.Extensions {
+public extension Certificate.Extensions {
     var ocspNonce: OCSPNonce? {
         get throws {
             try self[oid: .OCSPExtensionID.nonceIdentifier].map { try .init($0) }

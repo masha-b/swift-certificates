@@ -27,7 +27,7 @@ import SwiftASN1
 /// id-pkix-ocsp-basic     OBJECT IDENTIFIER ::= { id-pkix-ocsp 1 }
 /// ```
 ///
-struct OCSPResponseBytes: DERImplicitlyTaggable, Hashable {
+public struct OCSPResponseBytes: DERImplicitlyTaggable, Hashable {
     static var defaultIdentifier: ASN1Identifier {
         .sequence
     }

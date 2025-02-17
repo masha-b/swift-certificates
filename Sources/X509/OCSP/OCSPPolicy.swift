@@ -82,7 +82,7 @@ extension ASN1ObjectIdentifier {
     static let sha1NoSign: Self = [1, 3, 14, 3, 2, 26]
 }
 
-struct OCSPResponderSigningPolicy: VerifierPolicy {
+public struct OCSPResponderSigningPolicy: VerifierPolicy {
     let verifyingCriticalExtensions: [ASN1ObjectIdentifier] = []
 
     /// direct issuer of the certificate for which we check the OCSP status for
@@ -120,7 +120,7 @@ struct OCSPResponderSigningPolicy: VerifierPolicy {
     }
 }
 
-enum OCSPRequestHashAlgorithm {
+public enum OCSPRequestHashAlgorithm {
     case insecureSha1
     // we can't yet enable sha256 by default but we want in the future
     case sha256

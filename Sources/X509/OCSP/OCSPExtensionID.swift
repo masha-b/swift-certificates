@@ -14,7 +14,7 @@
 
 import SwiftASN1
 
-extension ASN1ObjectIdentifier {
+public extension ASN1ObjectIdentifier {
     /// OIDs that identify known OCSP extensions,
-    enum OCSPExtensionID {}
+    public enum OCSPExtensionID {}
 }

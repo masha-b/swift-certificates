@@ -29,7 +29,7 @@ import SwiftASN1
 
 /// ```
 ///
-enum OCSPResponseStatus: DERImplicitlyTaggable, Hashable {
+public enum OCSPResponseStatus: DERImplicitlyTaggable, Hashable {
     static var defaultIdentifier: ASN1Identifier {
         .enumerated
     }

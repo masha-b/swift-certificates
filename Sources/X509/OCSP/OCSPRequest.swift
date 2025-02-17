@@ -20,7 +20,7 @@ import SwiftASN1
 ///    tbsRequest              TBSRequest,
 ///    optionalSignature   [0] EXPLICIT Signature OPTIONAL }
 /// ```
-struct OCSPRequest: DERImplicitlyTaggable, Hashable {
+public struct OCSPRequest: DERImplicitlyTaggable, Hashable {
     static var defaultIdentifier: ASN1Identifier {
         .sequence
     }

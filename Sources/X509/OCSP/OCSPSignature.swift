@@ -21,7 +21,7 @@ import SwiftASN1
 ///    signature               BIT STRING,
 ///    certs               [0] EXPLICIT SEQUENCE OF Certificate OPTIONAL }
 /// ```
-struct OCSPSignature: DERImplicitlyTaggable, Hashable {
+public struct OCSPSignature: DERImplicitlyTaggable, Hashable {
     static var defaultIdentifier: ASN1Identifier {
         .sequence
     }

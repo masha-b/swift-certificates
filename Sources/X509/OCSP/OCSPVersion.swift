@@ -12,7 +12,7 @@
 //
 //===----------------------------------------------------------------------===//
 
-struct OCSPVersion {
+public struct OCSPVersion {
     var rawValue: Int
 
     init(rawValue: Int) {
