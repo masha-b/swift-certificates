@@ -27,15 +27,15 @@ import SwiftASN1
 /// ```
 ///
 public struct OCSPCertID: DERImplicitlyTaggable, Hashable {
-    var hashAlgorithm: AlgorithmIdentifier
+    public var hashAlgorithm: AlgorithmIdentifier
 
     /// Hash of issuer's DN
-    var issuerNameHash: ASN1OctetString
+    public var issuerNameHash: ASN1OctetString
 
     /// Hash of issuer's public key
-    var issuerKeyHash: ASN1OctetString
+    public var issuerKeyHash: ASN1OctetString
 
-    var serialNumber: Certificate.SerialNumber
+    public var serialNumber: Certificate.SerialNumber
 
     public static var defaultIdentifier: ASN1Identifier {
         .sequence
