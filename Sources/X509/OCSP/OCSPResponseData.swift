@@ -42,7 +42,7 @@ public struct OCSPResponseData: DERImplicitlyTaggable, Hashable {
 
     var responseExtensions: Certificate.Extensions?
 
-    public init(
+    init(
         version: OCSPVersion = .v1,
         responderID: ResponderID,
         producedAt: GeneralizedTime,
