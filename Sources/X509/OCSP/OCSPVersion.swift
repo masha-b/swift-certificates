@@ -13,13 +13,13 @@
 //===----------------------------------------------------------------------===//
 
 public struct OCSPVersion {
-    var rawValue: Int
+    public var rawValue: Int
 
-    init(rawValue: Int) {
+    public init(rawValue: Int) {
         self.rawValue = rawValue
     }
 
-    static let v1 = Self(rawValue: 0)
+    public static let v1 = Self(rawValue: 0)
 }
 
 extension OCSPVersion: Hashable {}
