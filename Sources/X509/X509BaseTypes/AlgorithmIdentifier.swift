@@ -14,7 +14,6 @@
 
 import SwiftASN1
 
-@usableFromInline
 public struct AlgorithmIdentifier: DERImplicitlyTaggable, BERImplicitlyTaggable, Hashable, Sendable {
     @inlinable
     public static var defaultIdentifier: ASN1Identifier {
