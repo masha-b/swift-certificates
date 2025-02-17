@@ -30,7 +30,7 @@ import SwiftASN1
 /// ```
 ///
 public enum OCSPResponseStatus: DERImplicitlyTaggable, Hashable {
-    static var defaultIdentifier: ASN1Identifier {
+    public static var defaultIdentifier: ASN1Identifier {
         .enumerated
     }
 
@@ -41,7 +41,7 @@ public enum OCSPResponseStatus: DERImplicitlyTaggable, Hashable {
     case sigRequired
     case unauthorized
 
-    init(derEncoded rootNode: ASN1Node, withIdentifier identifier: ASN1Identifier) throws {
+    public init(derEncoded rootNode: ASN1Node, withIdentifier identifier: ASN1Identifier) throws {
         let rawValue = try Int(derEncoded: rootNode, withIdentifier: identifier)
 
         switch rawValue {
@@ -73,13 +73,13 @@ public enum OCSPResponseStatus: DERImplicitlyTaggable, Hashable {
         }
     }
 
-    func serialize(into coder: inout DER.Serializer, withIdentifier identifier: ASN1Identifier) throws {
+    public func serialize(into coder: inout DER.Serializer, withIdentifier identifier: ASN1Identifier) throws {
         try self.integerValue.serialize(into: &coder, withIdentifier: identifier)
     }
 }
 
 extension OCSPResponseStatus: CustomStringConvertible {
-    var description: String {
+    public var description: String {
         switch self {
         case .successful: return "successful"
         case .malformedRequest: return "malformedRequest"

@@ -83,11 +83,11 @@ extension ASN1ObjectIdentifier {
 }
 
 public struct OCSPResponderSigningPolicy: VerifierPolicy {
-    let verifyingCriticalExtensions: [ASN1ObjectIdentifier] = []
+    public let verifyingCriticalExtensions: [ASN1ObjectIdentifier] = []
 
     /// direct issuer of the certificate for which we check the OCSP status for
     var issuer: Certificate
-    mutating func chainMeetsPolicyRequirements(chain: UnverifiedCertificateChain) async -> PolicyEvaluationResult {
+    public mutating func chainMeetsPolicyRequirements(chain: UnverifiedCertificateChain) async -> PolicyEvaluationResult {
         // The root of the chain is always guaranteed to be the issuer as the root certificate store only contains the issuer
         guard chain.last == issuer else {
             return .failsToMeetPolicy(

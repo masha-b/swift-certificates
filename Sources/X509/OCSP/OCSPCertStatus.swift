@@ -51,7 +51,7 @@ public enum OCSPCertStatus: DERParseable, DERSerializable, Hashable {
     private static let revokedIdentifier = ASN1Identifier(tagWithNumber: 1, tagClass: .contextSpecific)
     private static let unknownIdentifier = ASN1Identifier(tagWithNumber: 2, tagClass: .contextSpecific)
 
-    init(derEncoded node: ASN1Node) throws {
+    public init(derEncoded node: ASN1Node) throws {
         switch node.identifier {
         case OCSPCertStatus.goodIdentifier:
             _ = try ASN1Null(derEncoded: node, withIdentifier: OCSPCertStatus.goodIdentifier)
@@ -69,7 +69,7 @@ public enum OCSPCertStatus: DERParseable, DERSerializable, Hashable {
         }
     }
 
-    func serialize(into coder: inout DER.Serializer) throws {
+    public func serialize(into coder: inout DER.Serializer) throws {
         switch self {
         case .good:
             ASN1Null().serialize(into: &coder, withIdentifier: OCSPCertStatus.goodIdentifier)
@@ -84,7 +84,7 @@ public enum OCSPCertStatus: DERParseable, DERSerializable, Hashable {
 }
 
 public struct OCSPRevokedInfo: DERImplicitlyTaggable, Hashable {
-    static var defaultIdentifier: ASN1Identifier {
+    public static var defaultIdentifier: ASN1Identifier {
         .sequence
     }
 
@@ -92,12 +92,12 @@ public struct OCSPRevokedInfo: DERImplicitlyTaggable, Hashable {
 
     var revocationReason: CRLReason?
 
-    init(revocationTime: GeneralizedTime, revocationReason: CRLReason?) {
+    public init(revocationTime: GeneralizedTime, revocationReason: CRLReason?) {
         self.revocationTime = revocationTime
         self.revocationReason = revocationReason
     }
 
-    init(derEncoded rootNode: ASN1Node, withIdentifier identifier: ASN1Identifier) throws {
+    public init(derEncoded rootNode: ASN1Node, withIdentifier identifier: ASN1Identifier) throws {
         self = try DER.sequence(rootNode, identifier: identifier) { nodes in
             let revocationTime = try GeneralizedTime(derEncoded: &nodes)
             let revocationReason = try DER.optionalExplicitlyTagged(&nodes, tagNumber: 0, tagClass: .contextSpecific) {
@@ -109,7 +109,7 @@ public struct OCSPRevokedInfo: DERImplicitlyTaggable, Hashable {
         }
     }
 
-    func serialize(into coder: inout DER.Serializer, withIdentifier identifier: ASN1Identifier) throws {
+    public func serialize(into coder: inout DER.Serializer, withIdentifier identifier: ASN1Identifier) throws {
         try coder.appendConstructedNode(identifier: identifier) { coder in
             try coder.serialize(self.revocationTime)
 
@@ -121,21 +121,21 @@ public struct OCSPRevokedInfo: DERImplicitlyTaggable, Hashable {
 }
 
 public struct CRLReason: DERImplicitlyTaggable, Hashable, RawRepresentable {
-    static var defaultIdentifier: ASN1Identifier {
+    public static var defaultIdentifier: ASN1Identifier {
         .enumerated
     }
 
-    var rawValue: Int
+    public var rawValue: Int
 
-    init(rawValue: Int) {
+    public init(rawValue: Int) {
         self.rawValue = rawValue
     }
 
-    init(derEncoded rootNode: ASN1Node, withIdentifier identifier: ASN1Identifier) throws {
+    public init(derEncoded rootNode: ASN1Node, withIdentifier identifier: ASN1Identifier) throws {
         self.rawValue = try .init(derEncoded: rootNode, withIdentifier: identifier)
     }
 
-    func serialize(into coder: inout DER.Serializer, withIdentifier identifier: ASN1Identifier) throws {
+    public func serialize(into coder: inout DER.Serializer, withIdentifier identifier: ASN1Identifier) throws {
         try self.rawValue.serialize(into: &coder, withIdentifier: identifier)
     }
 
@@ -151,8 +151,8 @@ public struct CRLReason: DERImplicitlyTaggable, Hashable, RawRepresentable {
     static let aaCompromise = CRLReason(rawValue: 10)
 }
 
-public extension CRLReason: CustomStringConvertible {
-    var description: String {
+extension CRLReason: CustomStringConvertible {
+    public var description: String {
         switch rawValue {
         case 0: return "unspecified"
         case 1: return "keyCompromise"

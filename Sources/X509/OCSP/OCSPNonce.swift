@@ -20,21 +20,21 @@ import SwiftASN1
 /// ```
 /// RFC: https://www.rfc-editor.org/rfc/rfc8954.html
 public struct OCSPNonce: DERImplicitlyTaggable, Hashable, Sendable {
-    static var defaultIdentifier: ASN1Identifier {
+    public static var defaultIdentifier: ASN1Identifier {
         ASN1OctetString.defaultIdentifier
     }
-    var rawValue: ASN1OctetString
+    public var rawValue: ASN1OctetString
 
-    init() {
+    public init() {
         var generator = SystemRandomNumberGenerator()
         self.init(generator: &generator)
     }
 
-    init(generator: inout some RandomNumberGenerator) {
+    public init(generator: inout some RandomNumberGenerator) {
         self.rawValue = .init(contentBytes: generator.bytes(count: 32))
     }
 
-    init(_ ext: Certificate.Extension) throws {
+    public init(_ ext: Certificate.Extension) throws {
         guard ext.oid == .OCSPExtensionID.nonceIdentifier else {
             throw CertificateError.incorrectOIDForExtension(
                 reason: "Expected \(ASN1ObjectIdentifier.OCSPExtensionID.nonceIdentifier), got \(ext.oid)"
@@ -44,7 +44,7 @@ public struct OCSPNonce: DERImplicitlyTaggable, Hashable, Sendable {
         try self.init(derEncoded: ext.value)
     }
 
-    init(derEncoded rootNode: ASN1Node, withIdentifier identifier: ASN1Identifier) throws {
+    public init(derEncoded rootNode: ASN1Node, withIdentifier identifier: ASN1Identifier) throws {
         self.rawValue = try ASN1OctetString(derEncoded: rootNode, withIdentifier: identifier)
         guard (1...32).contains(self.rawValue.bytes.count) else {
             throw ASN1Error.unsupportedFieldLength(
@@ -53,7 +53,7 @@ public struct OCSPNonce: DERImplicitlyTaggable, Hashable, Sendable {
         }
     }
 
-    func serialize(into coder: inout DER.Serializer, withIdentifier identifier: ASN1Identifier) throws {
+    public func serialize(into coder: inout DER.Serializer, withIdentifier identifier: ASN1Identifier) throws {
         try rawValue.serialize(into: &coder, withIdentifier: identifier)
     }
 }
@@ -62,7 +62,7 @@ public extension ASN1ObjectIdentifier.OCSPExtensionID {
     public static let nonceIdentifier: ASN1ObjectIdentifier = [1, 3, 6, 1, 5, 5, 7, 48, 1, 2]
 }
 
-public extension Certificate.Extension {
+extension Certificate.Extension {
     /// Construct an opaque ``Certificate/Extension`` from this Key Usage extension.
     ///
     /// - Parameters:
@@ -75,14 +75,14 @@ public extension Certificate.Extension {
     }
 }
 
-public extension OCSPNonce: CertificateExtensionConvertible {
-    func makeCertificateExtension() throws -> Certificate.Extension {
+extension OCSPNonce: CertificateExtensionConvertible {
+    public func makeCertificateExtension() throws -> Certificate.Extension {
         try .init(self, critical: false)
     }
 }
 
-public extension Certificate.Extensions {
-    var ocspNonce: OCSPNonce? {
+extension Certificate.Extensions {
+    public var ocspNonce: OCSPNonce? {
         get throws {
             try self[oid: .OCSPExtensionID.nonceIdentifier].map { try .init($0) }
         }

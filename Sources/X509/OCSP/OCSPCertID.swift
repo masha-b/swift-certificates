@@ -37,11 +37,11 @@ public struct OCSPCertID: DERImplicitlyTaggable, Hashable {
 
     var serialNumber: Certificate.SerialNumber
 
-    static var defaultIdentifier: ASN1Identifier {
+    public static var defaultIdentifier: ASN1Identifier {
         .sequence
     }
 
-    init(
+    public init(
         hashAlgorithm: AlgorithmIdentifier,
         issuerNameHash: ASN1OctetString,
         issuerKeyHash: ASN1OctetString,
@@ -53,7 +53,7 @@ public struct OCSPCertID: DERImplicitlyTaggable, Hashable {
         self.serialNumber = serialNumber
     }
 
-    init(derEncoded node: ASN1Node, withIdentifier identifier: ASN1Identifier) throws {
+    public init(derEncoded node: ASN1Node, withIdentifier identifier: ASN1Identifier) throws {
         self = try DER.sequence(node, identifier: identifier) { nodes in
             let hashAlgorithm: AlgorithmIdentifier = try {
                 let hashAlgorithm = try AlgorithmIdentifier(derEncoded: &nodes)
@@ -83,7 +83,7 @@ public struct OCSPCertID: DERImplicitlyTaggable, Hashable {
         }
     }
 
-    func serialize(into coder: inout DER.Serializer, withIdentifier identifier: ASN1Identifier) throws {
+    public func serialize(into coder: inout DER.Serializer, withIdentifier identifier: ASN1Identifier) throws {
         try coder.appendConstructedNode(identifier: identifier) { coder in
             try self.hashAlgorithm.serialize(into: &coder)
             try self.issuerNameHash.serialize(into: &coder)

@@ -22,7 +22,7 @@ import SwiftASN1
 /// ```
 /// - note: originally named just `Request` in RFC 6960 but prefix `Single` added to avoid naming conflicts with ``OCSPRequest``
 public struct OCSPSingleRequest: DERImplicitlyTaggable, Hashable {
-    static var defaultIdentifier: ASN1Identifier {
+    public static var defaultIdentifier: ASN1Identifier {
         .sequence
     }
 
@@ -30,12 +30,12 @@ public struct OCSPSingleRequest: DERImplicitlyTaggable, Hashable {
 
     var singleRequestExtensions: Certificate.Extensions?
 
-    init(certID: OCSPCertID, singleRequestExtensions: Certificate.Extensions? = nil) {
+    public init(certID: OCSPCertID, singleRequestExtensions: Certificate.Extensions? = nil) {
         self.certID = certID
         self.singleRequestExtensions = singleRequestExtensions
     }
 
-    init(derEncoded: ASN1Node, withIdentifier identifier: ASN1Identifier) throws {
+    public init(derEncoded: ASN1Node, withIdentifier identifier: ASN1Identifier) throws {
         self = try DER.sequence(derEncoded, identifier: identifier) { nodes in
             let certID = try OCSPCertID(derEncoded: &nodes)
             let singleRequestExtensions = try DER.optionalExplicitlyTagged(
@@ -51,7 +51,7 @@ public struct OCSPSingleRequest: DERImplicitlyTaggable, Hashable {
         }
     }
 
-    func serialize(into coder: inout DER.Serializer, withIdentifier identifier: ASN1Identifier) throws {
+    public func serialize(into coder: inout DER.Serializer, withIdentifier identifier: ASN1Identifier) throws {
         try coder.appendConstructedNode(identifier: identifier) { coder in
             try self.certID.serialize(into: &coder)
             if let singleRequestExtensions = self.singleRequestExtensions {

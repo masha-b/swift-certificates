@@ -21,7 +21,7 @@ import SwiftASN1
 ///    optionalSignature   [0] EXPLICIT Signature OPTIONAL }
 /// ```
 public struct OCSPRequest: DERImplicitlyTaggable, Hashable {
-    static var defaultIdentifier: ASN1Identifier {
+    public static var defaultIdentifier: ASN1Identifier {
         .sequence
     }
 
@@ -29,12 +29,12 @@ public struct OCSPRequest: DERImplicitlyTaggable, Hashable {
 
     var signature: OCSPSignature?
 
-    init(tbsRequest: OCSPTBSRequest, signature: OCSPSignature? = nil) {
+    public init(tbsRequest: OCSPTBSRequest, signature: OCSPSignature? = nil) {
         self.tbsRequest = tbsRequest
         self.signature = signature
     }
 
-    init(derEncoded rootNode: ASN1Node, withIdentifier identifier: ASN1Identifier) throws {
+    public init(derEncoded rootNode: ASN1Node, withIdentifier identifier: ASN1Identifier) throws {
         self = try DER.sequence(rootNode, identifier: identifier) { nodes in
             let tbsRequest = try OCSPTBSRequest(derEncoded: &nodes)
             let signature = try DER.optionalExplicitlyTagged(&nodes, tagNumber: 0, tagClass: .contextSpecific) {
@@ -44,7 +44,7 @@ public struct OCSPRequest: DERImplicitlyTaggable, Hashable {
         }
     }
 
-    func serialize(into coder: inout DER.Serializer, withIdentifier identifier: ASN1Identifier) throws {
+    public func serialize(into coder: inout DER.Serializer, withIdentifier identifier: ASN1Identifier) throws {
         try coder.appendConstructedNode(identifier: identifier) { coder in
             try coder.serialize(self.tbsRequest)
             if let signature = self.signature {

@@ -28,7 +28,7 @@ import SwiftASN1
 /// ```
 ///
 public struct OCSPResponseBytes: DERImplicitlyTaggable, Hashable {
-    static var defaultIdentifier: ASN1Identifier {
+    public static var defaultIdentifier: ASN1Identifier {
         .sequence
     }
 
@@ -36,12 +36,12 @@ public struct OCSPResponseBytes: DERImplicitlyTaggable, Hashable {
 
     var response: ASN1OctetString
 
-    init(responseType: ASN1ObjectIdentifier, response: ASN1OctetString) {
+    public init(responseType: ASN1ObjectIdentifier, response: ASN1OctetString) {
         self.responseType = responseType
         self.response = response
     }
 
-    init(derEncoded rootNode: ASN1Node, withIdentifier identifier: ASN1Identifier) throws {
+    public init(derEncoded rootNode: ASN1Node, withIdentifier identifier: ASN1Identifier) throws {
         self = try DER.sequence(rootNode, identifier: identifier) { nodes in
             let responseType = try ASN1ObjectIdentifier(derEncoded: &nodes)
             let response = try ASN1OctetString(derEncoded: &nodes)

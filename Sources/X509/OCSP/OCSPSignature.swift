@@ -22,7 +22,7 @@ import SwiftASN1
 ///    certs               [0] EXPLICIT SEQUENCE OF Certificate OPTIONAL }
 /// ```
 public struct OCSPSignature: DERImplicitlyTaggable, Hashable {
-    static var defaultIdentifier: ASN1Identifier {
+    public static var defaultIdentifier: ASN1Identifier {
         .sequence
     }
 
@@ -32,13 +32,13 @@ public struct OCSPSignature: DERImplicitlyTaggable, Hashable {
 
     var certs: [Certificate]?
 
-    init(algorithmIIdentifier: AlgorithmIdentifier, signature: ASN1BitString, certs: [Certificate]? = nil) {
+    public init(algorithmIIdentifier: AlgorithmIdentifier, signature: ASN1BitString, certs: [Certificate]? = nil) {
         self.algorithmIIdentifier = algorithmIIdentifier
         self.signature = signature
         self.certs = certs
     }
 
-    init(derEncoded: ASN1Node, withIdentifier identifier: ASN1Identifier) throws {
+    public init(derEncoded: ASN1Node, withIdentifier identifier: ASN1Identifier) throws {
         self = try DER.sequence(derEncoded, identifier: identifier) { nodes in
             let algorithmIdentifier = try AlgorithmIdentifier(derEncoded: &nodes)
             let signature = try ASN1BitString(derEncoded: &nodes)
@@ -49,7 +49,7 @@ public struct OCSPSignature: DERImplicitlyTaggable, Hashable {
         }
     }
 
-    func serialize(into coder: inout DER.Serializer, withIdentifier identifier: ASN1Identifier) throws {
+    public func serialize(into coder: inout DER.Serializer, withIdentifier identifier: ASN1Identifier) throws {
         try coder.appendConstructedNode(identifier: identifier) { coder in
             try self.algorithmIIdentifier.serialize(into: &coder)
             try self.signature.serialize(into: &coder)

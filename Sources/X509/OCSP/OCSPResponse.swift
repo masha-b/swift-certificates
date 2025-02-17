@@ -24,7 +24,7 @@ import SwiftASN1
 /// ```
 ///
 public enum OCSPResponse: DERImplicitlyTaggable, Hashable {
-    static var defaultIdentifier: ASN1Identifier {
+    public static var defaultIdentifier: ASN1Identifier {
         .sequence
     }
 
@@ -35,7 +35,7 @@ public enum OCSPResponse: DERImplicitlyTaggable, Hashable {
     case sigRequired
     case unauthorized
 
-    init(derEncoded rootNode: ASN1Node, withIdentifier identifier: ASN1Identifier) throws {
+    public init(derEncoded rootNode: ASN1Node, withIdentifier identifier: ASN1Identifier) throws {
         self = try DER.sequence(rootNode, identifier: identifier) { nodes in
             let responseStatus = try OCSPResponseStatus(derEncoded: &nodes)
             let responseBytes = try DER.optionalExplicitlyTagged(&nodes, tagNumber: 0, tagClass: .contextSpecific) {
@@ -77,7 +77,7 @@ public enum OCSPResponse: DERImplicitlyTaggable, Hashable {
         self = unsuccessfulStatus
     }
 
-    func serialize(into coder: inout DER.Serializer, withIdentifier identifier: ASN1Identifier) throws {
+    public func serialize(into coder: inout DER.Serializer, withIdentifier identifier: ASN1Identifier) throws {
         try coder.appendConstructedNode(identifier: identifier) { coder in
             try coder.serialize(OCSPResponseStatus(self))
             switch self {

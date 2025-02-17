@@ -27,13 +27,13 @@ extension OCSPVersion: Hashable {}
 extension OCSPVersion: Sendable {}
 
 extension OCSPVersion: Comparable {
-    static func < (lhs: Self, rhs: Self) -> Bool {
+    public static func < (lhs: Self, rhs: Self) -> Bool {
         lhs.rawValue < rhs.rawValue
     }
 }
 
 extension OCSPVersion: CustomStringConvertible {
-    var description: String {
+    public var description: String {
         switch self {
         case .v1:
             return "OCSPv1"
