@@ -21,10 +21,8 @@ public struct AlgorithmIdentifier: DERImplicitlyTaggable, BERImplicitlyTaggable,
         .sequence
     }
 
-    @usableFromInline
     public var algorithm: ASN1ObjectIdentifier
 
-    @usableFromInline
     public var parameters: ASN1Any?
 
     @inlinable
@@ -68,37 +66,31 @@ public struct AlgorithmIdentifier: DERImplicitlyTaggable, BERImplicitlyTaggable,
 
 // MARK: Algorithm Identifier Statics
 extension AlgorithmIdentifier {
-    @usableFromInline
     public static let p256PublicKey = AlgorithmIdentifier(
         algorithm: .AlgorithmIdentifier.idEcPublicKey,
         parameters: try! .init(erasing: ASN1ObjectIdentifier.NamedCurves.secp256r1)
     )
 
-    @usableFromInline
     public static let p384PublicKey = AlgorithmIdentifier(
         algorithm: .AlgorithmIdentifier.idEcPublicKey,
         parameters: try! .init(erasing: ASN1ObjectIdentifier.NamedCurves.secp384r1)
     )
 
-    @usableFromInline
     public static let p521PublicKey = AlgorithmIdentifier(
         algorithm: .AlgorithmIdentifier.idEcPublicKey,
         parameters: try! .init(erasing: ASN1ObjectIdentifier.NamedCurves.secp521r1)
     )
 
-    @usableFromInline
     public static let ecdsaWithSHA256 = AlgorithmIdentifier(
         algorithm: .AlgorithmIdentifier.ecdsaWithSHA256,
         parameters: nil
     )
 
-    @usableFromInline
     public static let ecdsaWithSHA384 = AlgorithmIdentifier(
         algorithm: .AlgorithmIdentifier.ecdsaWithSHA384,
         parameters: nil
     )
 
-    @usableFromInline
     public static let ecdsaWithSHA512 = AlgorithmIdentifier(
         algorithm: .AlgorithmIdentifier.ecdsaWithSHA512,
         parameters: nil
@@ -106,109 +98,91 @@ extension AlgorithmIdentifier {
 
     // MARK: For the RSA signature types, explicit ASN.1 NULL is equivalent to a missing parameters field.
     // We include both here, and the usage sites need to handle the equivalent.
-    @usableFromInline
     public static let sha1WithRSAEncryption = AlgorithmIdentifier(
         algorithm: .AlgorithmIdentifier.sha1WithRSAEncryption,
         parameters: try! ASN1Any(erasing: ASN1Null())
     )
 
-    @usableFromInline
     public static let sha1WithRSAEncryptionUsingNil = AlgorithmIdentifier(
         algorithm: .AlgorithmIdentifier.sha1WithRSAEncryption,
         parameters: nil
     )
 
-    @usableFromInline
     public static let sha256WithRSAEncryption = AlgorithmIdentifier(
         algorithm: .AlgorithmIdentifier.sha256WithRSAEncryption,
         parameters: try! ASN1Any(erasing: ASN1Null())
     )
 
-    @usableFromInline
     public static let sha256WithRSAEncryptionUsingNil = AlgorithmIdentifier(
         algorithm: .AlgorithmIdentifier.sha256WithRSAEncryption,
         parameters: nil
     )
 
-    @usableFromInline
     public static let sha384WithRSAEncryption = AlgorithmIdentifier(
         algorithm: .AlgorithmIdentifier.sha384WithRSAEncryption,
         parameters: try! ASN1Any(erasing: ASN1Null())
     )
 
-    @usableFromInline
     public static let sha384WithRSAEncryptionUsingNil = AlgorithmIdentifier(
         algorithm: .AlgorithmIdentifier.sha384WithRSAEncryption,
         parameters: nil
     )
 
-    @usableFromInline
     public static let sha512WithRSAEncryption = AlgorithmIdentifier(
         algorithm: .AlgorithmIdentifier.sha512WithRSAEncryption,
         parameters: try! ASN1Any(erasing: ASN1Null())
     )
 
-    @usableFromInline
     public static let sha512WithRSAEncryptionUsingNil = AlgorithmIdentifier(
         algorithm: .AlgorithmIdentifier.sha512WithRSAEncryption,
         parameters: nil
     )
 
-    @usableFromInline
     public static let rsaKey = AlgorithmIdentifier(
         algorithm: .AlgorithmIdentifier.rsaEncryption,
         parameters: try! ASN1Any(erasing: ASN1Null())
     )
 
-    @usableFromInline
     public static let sha1UsingNil = AlgorithmIdentifier(
         algorithm: .AlgorithmIdentifier.sha1,
         parameters: nil
     )
 
-    @usableFromInline
     public static let sha1 = AlgorithmIdentifier(
         algorithm: .AlgorithmIdentifier.sha1,
         parameters: try! ASN1Any(erasing: ASN1Null())
     )
 
-    @usableFromInline
     public static let sha256UsingNil = AlgorithmIdentifier(
         algorithm: .AlgorithmIdentifier.sha256,
         parameters: nil
     )
 
-    @usableFromInline
     public static let sha256 = AlgorithmIdentifier(
         algorithm: .AlgorithmIdentifier.sha256,
         parameters: try! ASN1Any(erasing: ASN1Null())
     )
 
-    @usableFromInline
     public static let sha384UsingNil = AlgorithmIdentifier(
         algorithm: .AlgorithmIdentifier.sha384,
         parameters: nil
     )
 
-    @usableFromInline
     public static let sha384 = AlgorithmIdentifier(
         algorithm: .AlgorithmIdentifier.sha384,
         parameters: try! ASN1Any(erasing: ASN1Null())
     )
 
-    @usableFromInline
     public static let sha512UsingNil = AlgorithmIdentifier(
         algorithm: .AlgorithmIdentifier.sha512,
         parameters: nil
     )
 
-    @usableFromInline
     public static let sha512 = AlgorithmIdentifier(
         algorithm: .AlgorithmIdentifier.sha512,
         parameters: try! ASN1Any(erasing: ASN1Null())
     )
 
-    @usableFromInline
     public static let ed25519 = AlgorithmIdentifier(
         algorithm: .AlgorithmIdentifier.ed25519,
         parameters: nil
@@ -216,7 +190,6 @@ extension AlgorithmIdentifier {
 }
 
 extension AlgorithmIdentifier: CustomStringConvertible {
-    @usableFromInline
     public var description: String {
         switch self {
         case .p256PublicKey:
@@ -279,17 +252,14 @@ extension ASN1ObjectIdentifier.AlgorithmIdentifier {
 }
 
 extension AlgorithmIdentifier {
-    @usableFromInline
     public static let ecdsaP256 = AlgorithmIdentifier(
         algorithm: .AlgorithmIdentifier.idEcPublicKey,
         parameters: try! .init(erasing: ASN1ObjectIdentifier.NamedCurves.secp256r1)
     )
-    @usableFromInline
     public static let ecdsaP384 = AlgorithmIdentifier(
         algorithm: .AlgorithmIdentifier.idEcPublicKey,
         parameters: try! .init(erasing: ASN1ObjectIdentifier.NamedCurves.secp384r1)
     )
-    @usableFromInline
     public static let ecdsaP521 = AlgorithmIdentifier(
         algorithm: .AlgorithmIdentifier.idEcPublicKey,
         parameters: try! .init(erasing: ASN1ObjectIdentifier.NamedCurves.secp521r1)
