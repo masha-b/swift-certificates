@@ -30,15 +30,15 @@ public struct OCSPSingleResponse: DERImplicitlyTaggable, Hashable {
         .sequence
     }
 
-    var certID: OCSPCertID
+    public var certID: OCSPCertID
 
-    var certStatus: OCSPCertStatus
+    public var certStatus: OCSPCertStatus
 
-    var thisUpdate: GeneralizedTime
+    public var thisUpdate: GeneralizedTime
 
-    var nextUpdate: GeneralizedTime?
+    public var nextUpdate: GeneralizedTime?
 
-    var extensions: Certificate.Extensions?
+    public var extensions: Certificate.Extensions?
 
     public init(
         certID: OCSPCertID,
