@@ -82,7 +82,7 @@ public struct BasicOCSPResponse: DERImplicitlyTaggable, Hashable {
         .sequence
     }
 
-    var responseData: OCSPResponseData
+    public var responseData: OCSPResponseData
 
     var responseDataBytes: ArraySlice<UInt8>
 

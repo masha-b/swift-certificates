@@ -32,13 +32,13 @@ public struct OCSPResponseData: DERImplicitlyTaggable, Hashable {
         .sequence
     }
 
-    var version: OCSPVersion
+    public var version: OCSPVersion
 
-    var responderID: ResponderID
+    public var responderID: ResponderID
 
-    var producedAt: GeneralizedTime
+    public var producedAt: GeneralizedTime
 
-    var responses: [OCSPSingleResponse]
+    public var responses: [OCSPSingleResponse]
 
     var responseExtensions: Certificate.Extensions?
 
