@@ -34,7 +34,7 @@ public struct OCSPResponseData: DERImplicitlyTaggable, Hashable {
 
     public var version: OCSPVersion
 
-    public var responderID: ResponderID
+    var responderID: ResponderID
 
     public var producedAt: GeneralizedTime
 
